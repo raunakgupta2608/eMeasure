@@ -1,0 +1,30 @@
+*{
+    color: black;
+}
+
+.container {
+    width: 87vw;
+    overflow-x: scroll;
+}
+
+#mumbai_div, div[data-group='Mumbai']{
+    background-color: crimson;
+}
+
+#delhi_div, div[data-group='Delhi']{
+    background-color: gold;
+}
+
+#kolkata_div, div[data-group='Kolkata']{
+    background-color: lightskyblue;
+}
+
+#parcel_div {
+    display: flex;
+    padding-left: 0px;
+}
+
+div[data-group] {
+    width: 1000px;
+    padding: 0 10px;
+}
