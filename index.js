@@ -160,56 +160,111 @@ function initialization() {
     temp.push(mumbaiArr);
     temp.push(delhiArr);
     temp.push(kolkataArr);
-    mumbai_div.style.width = `${(mumbaiArr.length)*(1000 + 2*10)}px`;
-    delhi_div.style.width = `${(delhiArr.length)*(1000 + 2*10)}px`;
-    kolkata_div.style.width = `${(kolkataArr.length)*(1000 + 2*10)}px`;
     globalArray = temp.flat();
-
+    // console.log(globalArray);
     addDivsToDOM();
-
-    document.getElementById('lower_row').style.width = document.getElementById('upper_row').style.width;
 
     addListeners();
 }
 
 function addDivsToDOM() {
-    let divs = '';
+    let mumbai_div = '';
+    let delhi_div = '';
+    let kolkata_div = '';
     globalArray.map((ele, index) => {
-        let div = `<div id =${index+1} class=${ele.sequence} data-sequence=${ele.sequence} data-group=${ele.group}>${ele.name}</div>`;
-        divs = divs + div;
+        if(ele.group == 'Mumbai') {
+        	mumbai_div = mumbai_div + `<div id =${index+1} class=${ele.sequence} data-sequence=${ele.sequence} data-group=${ele.group}>${ele.name}</div>`;
+        }
+		if(ele.group == 'Delhi') {
+        	delhi_div = delhi_div + `<div id =${index+1} class=${ele.sequence} data-sequence=${ele.sequence} data-group=${ele.group}>${ele.name}</div>`;
+        }
+		if(ele.group == 'Kolkata') {
+        	kolkata_div = kolkata_div + `<div id =${index+1} class=${ele.sequence} data-sequence=${ele.sequence} data-group=${ele.group}>${ele.name}</div>`;
+        }
     });
-    document.getElementById('parcel_div').innerHTML = divs;
+    document.getElementById('mumbai_div').innerHTML = mumbai_div;
+    document.getElementById('delhi_div').innerHTML = delhi_div;
+    document.getElementById('kolkata_div').innerHTML = kolkata_div;
 }
 
 function addListeners() {
-    document.getElementById('parcel_div').childNodes.forEach((child) => {
+    document.getElementById('mumbai_div').childNodes.forEach((child) => {
         child.addEventListener('click', (e) => {
             child.style.backgroundColor = "green";
-            // console.log(e.target.attributes);
+            select.value = e.target.attributes[3].value;
+            selectedParcel = e;
+        })
+    });
+    document.getElementById('delhi_div').childNodes.forEach((child) => {
+        child.addEventListener('click', (e) => {
+            child.style.backgroundColor = "green";
+            select.value = e.target.attributes[3].value;
+            selectedParcel = e;
+        })
+    });
+    document.getElementById('kolkata_div').childNodes.forEach((child) => {
+        child.addEventListener('click', (e) => {
+            child.style.backgroundColor = "green";
             select.value = e.target.attributes[3].value;
             selectedParcel = e;
         })
     });
 }
 
-
 add_after.addEventListener('click', (e) => {
     if(validation() === true) {
         const {obj, i} = computeObjectAndIndex();
     
         globalArray.splice(i+1, 0, obj);
-        addDivsToDOM();
+        workAfterManipulation();
     }
 });
 
 add_before.addEventListener('click', (e) => {
     if(validation() === true) {
         const {obj, i} = computeObjectAndIndex();
-
+        
         globalArray.splice(i, 0, obj);
-        addDivsToDOM();
+        workAfterManipulation();
     }
 });
+
+replace.addEventListener('click', (e) => {
+    if(validation() === true) {
+        const i = computeObjectAndIndex().i;
+        let obj = {id: 99, name: nameField.value, sequence: (globalArray[i]), group: select.value};
+        globalArray[i] = obj;
+        workAfterManipulation();
+    }
+});
+
+deleteNode.addEventListener('click', (e) => {
+    if(selectedParcel == undefined) {
+        alert("Please select some parcel");
+        return false
+    }
+    const i = computeObjectAndIndex().i;
+    console.log(i);
+    globalArray.splice(i, 1);
+    workAfterManipulation();
+});
+
+show_final.addEventListener('click', (e) => {
+    if(selectedParcel == undefined) {
+        alert("Please select some parcel");
+        return false
+    }
+    const i = computeObjectAndIndex().i;
+    console.log(globalArray[i]);
+});
+
+function workAfterManipulation() {
+    addDivsToDOM();
+    addListeners();
+    selectedParcel = null;
+    nameField.value = '';
+    select.value = 'none';
+}
 
 function computeObjectAndIndex() {
     let obj = {id: 99, name: nameField.value, sequence: (globalArray.length + 1), group: select.value};

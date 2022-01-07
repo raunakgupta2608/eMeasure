@@ -9,23 +9,34 @@
     <title>eMeasurematics</title>
 </head>
 <body>
-    
-    <div class="container">
-        <div id="upper_row" class="row">
-          <div class="col" id="mumbai_div">
-            Mumbai
-          </div>
-          <div class="col" id="delhi_div">
-            Delhi
-          </div>
-          <div class="col" id="kolkata_div">
-            Kolkata
-          </div>
+    <div class="container d-flex flex-row text-center">
+        <div class="d-flex flex-row border border-dark">
+            <div class="d-flex flex-column">
+                <div class="mumbaiText">
+                    Mumbai
+                </div>
+                <div id="mumbai_div" class="d-flex flex-row mt-3"></div>                 
+            </div>
         </div>
-        <div id="lower_row" class="row mt-5">
-            <div id="parcel_div"></div>
+        <div class="d-flex flex-row border border-dark">
+            <div class="d-flex flex-column">
+                <div class="delhiText">
+                    Delhi
+                </div>
+                <div id="delhi_div" class="d-flex flex-row mt-3"></div>                 
+            </div>
+        </div>
+        <div class="d-flex flex-row border border-dark">
+            <div class="d-flex flex-column">
+                <div class="kolkataText">
+                    Kolkata
+                </div>
+                <div id="kolkata_div" class="d-flex flex-row mt-3"></div>                 
+            </div>
         </div>
     </div>
+
+
 
     <div class="mt-5 container-fluid">
         <form>
@@ -69,12 +80,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="container mt-5">
-        <div class="row">
-            <div id="parcel_div"></div>
-        </div>
-    </div> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="index.js"></script>   
